@@ -55,8 +55,8 @@ class Coeficiente_de_Desvanecimento:
         else:
             k = 13 - 0.03*d
 
-        PL = -1*walfishIkegami(d, LOS)
-        h = fading(NN, tamanho, seed)
+        PL = -1*self.walfishIkegami(d, LOS)
+        h = self.fading(NN, tamanho, seed)
 
         beta = PL/(1+k)
 
