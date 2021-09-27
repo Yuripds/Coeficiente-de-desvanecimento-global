@@ -6,7 +6,7 @@ from coeficienteDevanecimento_GlobalLib import fading_doppler
 
 class Coeficiente_de_Desvanecimento:
 
-    def fading(self, tamanho, seed):
+    def fading(tamanho, seed):
         h = np.zeros((1, tamanho), dtype=complex)
         conc = 1.0
         an, doppler = fading_doppler.Fading_Doppler.gcanal(self.NN, seed)
