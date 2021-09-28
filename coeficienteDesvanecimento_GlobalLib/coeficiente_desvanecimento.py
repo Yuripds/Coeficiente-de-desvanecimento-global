@@ -48,12 +48,12 @@ class Coeficiente_de_Desvanecimento:
 
         return h_n
 
-    def fading(self,tamanho=None, seed=None):
+    def fading(self,NN=None,tamanho=None, seed=None):
         h = np.zeros((1, tamanho), dtype=complex)
         conc = 1.0
-        an, doppler = self.gcanal(self.NN, seed)
+        an, doppler = self.gcanal(NN, seed)
         for j in range(tamanho):
-            h[:, j] = self.gera_canal(self.NN, conc, an, doppler)
+            h[:, j] = self.gera_canal(NN, conc, an, doppler)
             conc = conc+1.0
         return h
 
