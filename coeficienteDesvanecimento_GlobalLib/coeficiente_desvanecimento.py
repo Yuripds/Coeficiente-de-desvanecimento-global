@@ -4,7 +4,7 @@ import random
 
 class Coeficiente_de_Desvanecimento:
 
-    def gcanal(self, NN, SEED):
+    def gcanal(self, NN=None, SEED=None):
 
         np.random.seed(SEED)
 
@@ -31,7 +31,7 @@ class Coeficiente_de_Desvanecimento:
             doppler[:, j] = 2.0*np.pi*T*dn[:, j]
         return an, doppler
 
-    def gera_canal(self, NN, conc, an, doppler):
+    def gera_canal(self, NN=None, conc=None, an=None, doppler=None):
 
         e = np.zeros((1, NN), dtype=complex)
         h = np.zeros((1, NN), dtype=complex)
@@ -48,7 +48,7 @@ class Coeficiente_de_Desvanecimento:
 
         return h_n
 
-    def fading(self,tamanho, seed):
+    def fading(self,tamanho=None, seed=None):
         h = np.zeros((1, tamanho), dtype=complex)
         conc = 1.0
         an, doppler = self.gcanal(self.NN, seed)
@@ -58,7 +58,7 @@ class Coeficiente_de_Desvanecimento:
         return h
 
     # d é dado em metros
-    def hataCost231(self, d):
+    def hataCost231(self, d=None):
         fc = 1.9*(10**6)
         ht = 15
         hr = 1.65
@@ -79,7 +79,7 @@ class Coeficiente_de_Desvanecimento:
         return PL
 
     # d é dado em mestros
-    def walfishIkegami(self, d, LOS):
+    def walfishIkegami(self, d=None, LOS=None):
         fc = 1.9*(10**6)
         if LOS == True:
             PL = 35.4-(26*math.log(d, 10)) - (20*math.log(fc, 10))
@@ -89,7 +89,7 @@ class Coeficiente_de_Desvanecimento:
 
         return PL
 
-    def desvanecimentoGlobal(self, d, LOS, NN, tamanho, seed):
+    def desvanecimentoGlobal(self,d=None, LOS=None, NN=None, tamanho=None, seed=None):
 
         if LOS == False:
             k = 0
