@@ -96,7 +96,7 @@ class Coeficiente_de_Desvanecimento:
         if LOS == False:
             k = 0
             beta = PL/(1+k)
-            g = 10**(math.sqrt(beta)/10)*h
+            g = (10**(math.sqrt(beta)/10))*h
             v = g
 
         else:
@@ -104,7 +104,7 @@ class Coeficiente_de_Desvanecimento:
 
             beta = PL/(1+k)
             
-            g = math.sqrt(beta)*h
+            g = (10**(math.sqrt(beta)/10))*h
 
             h_barra = math.sqrt(k/(1+k))*math.sqrt(PL)
 
