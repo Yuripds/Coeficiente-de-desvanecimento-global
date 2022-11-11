@@ -88,23 +88,28 @@ class Coeficiente_de_Desvanecimento:
         return PL
 
     def desvanecimentoGlobal(self,d=None, LOS=None, NN=None, tamanho=None, seed=None,fc=2.0*(10**9)):
+        
+        h = self.fading(NN, tamanho, seed)
+        #PL = -1* self.walfishIkegami(d, LOS,fc)
+        PL = -1*self.hataCost231(d,fc)
 
         if LOS == False:
             k = 0
+            beta = PL/(1+k)
+            g = 10**(math.sqrt(beta)/10)*h
+            v = g
+
         else:
             k = 13 - 0.03*d
 
-        PL = -1*self.walfishIkegami(d, LOS,fc)
-        h = self.fading(NN, tamanho, seed)
+            beta = PL/(1+k)
+            
+            g = math.sqrt(beta)*h
 
-        beta = PL/(1+k)
+            h_barra = math.sqrt(k/(1+k))*math.sqrt(PL)
 
-        h_barra = math.sqrt(k/(1+k))*math.sqrt(PL)
+            phi = np.random.uniform(-math.pi, math.pi, 1)
 
-        phi = np.random.uniform(-math.pi, math.pi, 1)
-
-        g = math.sqrt(beta)*h
-
-        v = h_barra * np.exp(1j*phi) + g
+            v = h_barra * np.exp(1j*phi) + g
 
         return v
