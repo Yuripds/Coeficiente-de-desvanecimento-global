@@ -91,11 +91,11 @@ class Coeficiente_de_Desvanecimento:
         
         h = self.fading(NN, tamanho, seed)
         #PL =  self.walfishIkegami(d, LOS,fc)
-        PL =-1* self.hataCost231(d,fc)
+        PL = self.hataCost231(d,fc)
 
         if LOS == False:
             k = 0
-            PL = 10**(PL/10)
+            PL = 10**(PL*0.1)
             beta = PL/(1+k)
             
 
