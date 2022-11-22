@@ -61,19 +61,22 @@ class Coeficiente_de_Desvanecimento:
     def hataCost231(self, d=None,fc=None):
         ht = 15
         hr = 1.65
-        d0 = 10
-        d1 = 50
-        L = 46.3 + (33.9*(math.log(fc, 10))) - (13.82*(math.log(ht, 10))) - 0.8 - \
-            (((1.11*(math.log(ht, 10))) - 0.7))*hr + (1.56*(math.log(fc, 10)))
+        fc =2*(10**3)
+       # d0 = 10
+       # d1 = 50
+        
+        L = 46.3 + (33.9*(math.log(fc, 10))) - (13.82*(math.log(ht, 10))) -  \
+            ((((1.1*(math.log(fc, 10))) - 0.7))*hr - ((1.56*(math.log(fc, 10))) - 0.8))+\
+               ((44.9 - (6.55*(math.log(ht, 10))))*(math.log(d/1000, 10)))
 
         PL = -L
 
-        if (d > d0) & (d <= d1):
-            PL = PL - (15*math.log(d1, 10)) - (20*math.log(d, 10))
-        elif d > d1:
-            PL = PL - (35*math.log(d, 10))
-        else:
-            PL = PL - (15*math.log(d1, 10)) - (20*math.log(d0, 10))
+    #    if (d > d0) & (d <= d1):
+    #        PL = PL - (15*math.log(d1, 10)) - (20*math.log(d, 10))
+    #    elif d > d1:
+    #        PL = PL - (35*math.log(d, 10))
+    #    else:
+    #        PL = PL - (15*math.log(d1, 10)) - (20*math.log(d0, 10))
 
         return PL
 
@@ -87,7 +90,7 @@ class Coeficiente_de_Desvanecimento:
 
         return PL
 
-    def desvanecimentoGlobal(self,d=None, LOS=None, NN=None, tamanho=None, seed=None,fc=2.0*(10**9)):
+    def desvanecimentoGlobal(self,d=None, LOS=None, NN=None, tamanho=None, seed=None,fc=2.0*(10**3)):
         
         h = self.fading(NN, tamanho, seed)
         #PL =  self.walfishIkegami(d, LOS,fc)
