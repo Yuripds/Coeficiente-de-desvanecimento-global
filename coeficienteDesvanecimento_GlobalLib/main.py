@@ -9,16 +9,16 @@ cg_obj = cod.Coeficiente_de_Desvanecimento()
 
 
 
-h=10**(cg_obj.walfishIkegami(500, False,2.0*(10**9))/10)
+#h=10**(cg_obj.walfishikegami(500, False,2.0*(10**3))/10)
 
 
-hc_231 = cg_obj.hataCost231( d=2000,fc=2.0*(10**9))
+#hc_231 = cg_obj.hatacost231( d=2000,fc=2.0*(10**3))
 
 
-desvaneciomento_global =cg_obj.desvanecimentoGlobal(d=500, LOS=False, NN=20, tamanho=10**4, seed=1,fc=2.0*(10**3))
+desvaneciomento_global =cg_obj.desvanecimentoglobal(d=1000, LOS=False, NN=20, tamanho=10**4, seed=1,fc=2000)
 #print(desvaneciomento_global)
 
-y = abs(desvaneciomento_global[0])
+
 
 
 x = range(len(desvaneciomento_global[0]))

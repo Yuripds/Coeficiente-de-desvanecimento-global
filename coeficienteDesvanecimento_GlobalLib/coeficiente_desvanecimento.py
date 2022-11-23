@@ -58,30 +58,25 @@ class Coeficiente_de_Desvanecimento:
         return h
 
     # d é dado em metros
-    def hataCost231(self, d=None,fc=None):
-        ht = 15
-        hr = 1.65
-        fc =2*(10**3)
-       # d0 = 10
-       # d1 = 50
+    def hatacost231(self, d=None,fc=None):
+        ### em metros
+        ht = 30
+        hr = 2  
+
+        alpha=  (1.1*(math.log(fc, 10)) - 0.7)*hr   -  (1.56*(math.log(fc, 10) - 0.8))  
+
+        # medida em dB, centros metropolitano Cm = 3 dB, c.c. Cm = 0 dB
+        cm = 3       
         
-        L = 46.3 + (33.9*(math.log(fc, 10))) - (13.82*(math.log(ht, 10))) -  \
-            ((((1.1*(math.log(fc, 10))) - 0.7))*hr - ((1.56*(math.log(fc, 10))) - 0.8))+\
-               ((44.9 - (6.55*(math.log(ht, 10))))*(math.log(d/1000, 10)))
+        L = 46.3 + (33.9*(math.log(fc, 10))) - (13.82*(math.log(ht, 10))) - alpha +\
+               (44.9 - (6.55*(math.log(ht, 10))))*(math.log(d/1000, 10)) + cm
 
         PL = -L
-
-    #    if (d > d0) & (d <= d1):
-    #        PL = PL - (15*math.log(d1, 10)) - (20*math.log(d, 10))
-    #    elif d > d1:
-    #        PL = PL - (35*math.log(d, 10))
-    #    else:
-    #        PL = PL - (15*math.log(d1, 10)) - (20*math.log(d0, 10))
 
         return PL
 
     # d é dado em mestros
-    def walfishIkegami(self, d=None, LOS=None, fc=None):
+    def walfishikegami(self, d=None, LOS=None, fc=None):
         if LOS == True:
             PL = 35.4-(26*math.log(d, 10)) - (20*math.log(fc, 10))
         else:
@@ -90,11 +85,11 @@ class Coeficiente_de_Desvanecimento:
 
         return PL
 
-    def desvanecimentoGlobal(self,d=None, LOS=None, NN=None, tamanho=None, seed=None,fc=2.0*(10**3)):
+    def desvanecimentoglobal(self,d=None, LOS=None, NN=None, tamanho=None, seed=None,fc=2000):
         
         h = self.fading(NN, tamanho, seed)
-        #PL =  self.walfishIkegami(d, LOS,fc)
-        PL = self.hataCost231(d,fc)
+        #PL =  self.walfishikegami(d, LOS,fc)
+        PL = self.hatacost231(d,fc)
 
         if LOS == False:
             k = 0
