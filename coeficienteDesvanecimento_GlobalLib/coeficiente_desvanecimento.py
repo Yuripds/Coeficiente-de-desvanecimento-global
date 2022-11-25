@@ -61,12 +61,12 @@ class Coeficiente_de_Desvanecimento:
     def hatacost231(self, d=None,fc=None):
         ### em metros
         ht = 30
-        hr = 2  
+        hr = 1.5  
 
         alpha=  (1.1*(math.log(fc, 10)) - 0.7)*hr   -  (1.56*(math.log(fc, 10) - 0.8))  
 
         # medida em dB, centros metropolitano Cm = 3 dB, c.c. Cm = 0 dB
-        cm = 3       
+        cm = 0      
         
         L = 46.3 + (33.9*(math.log(fc, 10))) - (13.82*(math.log(ht, 10))) - alpha +\
                (44.9 - (6.55*(math.log(ht, 10))))*(math.log(d/1000, 10)) + cm
@@ -114,5 +114,50 @@ class Coeficiente_de_Desvanecimento:
             phi = np.random.uniform(-math.pi, math.pi, 1)
 
             v = h_barra * np.exp(1j*phi) + g
+
+        return v
+    
+    
+    def desvanecimento_modelo2(self,d=None, NN=None, tamanho=None, seed=None,l=3.0):
+
+
+        h = self.fading(NN, tamanho, seed)
+        ### l é o pathloss factor
+        v= (abs(h)**2)/math.sqrt(1+d**l)
+
+        return v
+
+    
+    def desvanecimento_modelo3(self,d=None, NN=None, tamanho=None, seed=None):
+
+
+        h = self.fading(NN, tamanho, seed)
+
+        pl = 133.6+35*math.log(d/1000, 10)
+        pl = 10**(-pl*0.1)
+
+        ### l é o pathloss factor
+        v= h*pl
+
+        return v
+    
+
+    def desvanecimento_modelo4(self,d=None, NN=None, tamanho=None, seed=None,fc=2000,dmin=1000):
+
+        h = self.fading(NN, tamanho, seed)
+
+        PL = self.hatacost231(d,fc)
+
+        PL_ref = self.hatacost231(dmin,fc)
+
+
+        PL = 10**((PL-PL_ref)*0.1)
+
+        
+
+        g = math.sqrt(PL)*h
+        v = g
+
+
 
         return v
