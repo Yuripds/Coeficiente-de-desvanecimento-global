@@ -25,10 +25,14 @@ d=np.random.uniform(1000,5000,12)
 desvaneciomento_global = np.zeros((12,tamanho_v),dtype=complex)
 for i in range(12):
     desvaneciomento_global[i,:] = cg_obj.desvanecimento_modelo4(d=d[i], NN=20, tamanho=10**4,seed=i,fc=2000,dmin=1000)
+    #desvaneciomento_global[i,:] = cg_obj.fading(NN=20, tamanho=10**4, seed=i)
 
 
 
 x = range(len(desvaneciomento_global[0]))
-plt.plot(x,desvaneciomento_global[0])
+
+for i in range(2):
+    plt.plot(x,abs(desvaneciomento_global[i]))
+
 plt.yscale("log")
 plt.show()

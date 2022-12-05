@@ -150,8 +150,8 @@ class Coeficiente_de_Desvanecimento:
 
         PL_ref = self.hatacost231(dmin,fc)
 
-
-        PL = 10**((PL-PL_ref)*0.1)
+        ### offset de 5 dB
+        PL = 10**((PL-PL_ref+10)*0.1)
 
         
 
